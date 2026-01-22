@@ -2,7 +2,7 @@ package ru.daru_jo.service;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ru.daru_jo.telegram_bot.TelegramBotSend;
 
 
@@ -13,9 +13,8 @@ import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
-@Service
+@Component
 public class FileService {
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FileService.class);
     private final Map<String, File> files = new HashMap<>();
 
     public String addFile(String name, String body) {

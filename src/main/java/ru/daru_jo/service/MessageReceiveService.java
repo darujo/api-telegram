@@ -1,11 +1,12 @@
 package ru.daru_jo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.daru_jo.model.MessageReceive;
 import ru.daru_jo.repository.MessageReceiveRepository;
 
-@Service
+@Component
 public class MessageReceiveService {
 
     private MessageReceiveRepository messageReceiveRepository;

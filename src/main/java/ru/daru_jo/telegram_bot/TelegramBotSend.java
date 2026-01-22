@@ -26,6 +26,7 @@ import org.telegram.telegrambots.meta.api.objects.media.InputMediaPhoto;
 import org.telegram.telegrambots.meta.api.objects.message.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.generics.TelegramClient;
 import ru.daru_jo.model.ChatInfo;
 import ru.daru_jo.model.MessageSend;
 import ru.daru_jo.service.MessageSendService;
@@ -37,10 +38,9 @@ import java.util.List;
 
 @Component
 
-
+@Slf4j
 public class TelegramBotSend {
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TelegramBotSend.class);
-    private final OkHttpTelegramClient tgClient;
+    private TelegramClient tgClient;
 
     private MessageSendService messageSendService;
 
@@ -49,9 +49,11 @@ public class TelegramBotSend {
         this.messageSendService = messageSendService;
     }
 
-    public TelegramBotSend(@Value("${telegram-bot.token}") String botToken) {
-        tgClient = new OkHttpTelegramClient(botToken);
+    @Autowired
+    public void setTelegramClient(TelegramClient telegramClient) {
+        this.tgClient = telegramClient;
     }
+
 
 
     public Message sendMessage(ChatInfo chatInfo, String text) throws TelegramApiException {
