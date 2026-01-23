@@ -3,8 +3,6 @@ package ru.daru_jo.service;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.daru_jo.telegram_bot.TelegramBotSend;
-
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

@@ -22,35 +22,4 @@ public class ChatInfo {
         this.originMessageId = originMessageId;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getChatId() {
-        return chatId;
-    }
-
-    public Integer getThreadId() {
-        return threadId;
-    }
-
-    public Integer getOriginMessageId() {
-        return originMessageId;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setChatId(String chatId) {
-        this.chatId = chatId;
-    }
-
-    public void setThreadId(Integer threadId) {
-        this.threadId = threadId;
-    }
-
-    public void setOriginMessageId(Integer originMessageId) {
-        this.originMessageId = originMessageId;
-    }
 }

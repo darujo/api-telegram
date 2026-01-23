@@ -13,11 +13,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
 import org.telegram.telegrambots.longpolling.util.TelegramOkHttpClientFactory;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 import ru.daru_jo.model.ChatInfo;
 import ru.daru_jo.service.FileService;
 
-import java.io.File;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -47,27 +47,6 @@ public class TelegramBotConfig {
 
     }
 
-    @Bean
-    @ConditionalOnMissingBean(MenuService.class)
-    public MenuService menuServiceImp(){
-            return new MenuService() {
-                @Override
-                public void openMainMenu(ChatInfo chatInfo) {
-
-                }
-
-                @Override
-                public void getMenu(ChatInfo chatInfo, String command, File picture){
-
-                }
-
-                @Override
-                public void openCancel(ChatInfo chatInfo, String text) {
-
-                }
-            };
-    }
-
     @Value("${telegram-bot.token}")
     private String botToken;
 
@@ -92,6 +71,28 @@ public class TelegramBotConfig {
     @Bean
     public FileService fileService() {
         return new FileService();
+
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(MessageService.class)
+    public MessageService messageService(TelegramBotSend telegramBotSend) {
+        return new MessageService() {
+            @Override
+            public void command(ChatInfo chatInfo, String command) throws TelegramApiException {
+                telegramBotSend.sendMessage(chatInfo, "Команды не поддерживаются Реализуйте свою обработку в bean MessageService");
+            }
+
+            @Override
+            public void message(ChatInfo chatInfo, String text) throws TelegramApiException {
+                telegramBotSend.sendMessage(chatInfo, "Сообщения не поддерживаются. Реализуйте свою обработку в bean MessageService");
+            }
+
+            @Override
+            public void getMenu(ChatInfo chatInfo, String command) throws TelegramApiException {
+                telegramBotSend.sendMessage(chatInfo, "Команда меню не известна. Реализуйте свою обработку в bean MessageService");
+            }
+        };
 
     }
 
